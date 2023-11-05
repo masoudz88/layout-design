@@ -28,21 +28,6 @@ const initialComponentState = {
   error: null,
 };
 
-const findAndUpdateComponentStyles = (components, id, newStyles) => {
-    for (const component of components) {
-      if (component.id === id) {
-        // Update styles if the current component is the one we're looking for
-        component.styles = { ...component.styles, ...newStyles };
-        return true;
-      }
-      // If not, and the component has children, recurse down
-      if (component.children && findAndUpdateComponentStyles(component.children, id, newStyles)) {
-        return true;
-      }
-    }
-    return false; // Return false if the component wasn't found at this level
-};
-
 const getRandomColor = () => {
     // Generate a random hex color
     return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0');
@@ -93,7 +78,10 @@ const componentSlice = createSlice({
     },
     updateStyles(state, action) {
         const { id, styles } = action.payload;
-        findAndUpdateComponentStyles(state.components, id, styles);
+        const component = findComponent(state.components, id);
+        if (component) {
+            component.styles = { ...component.styles, ...styles };
+        }
       },
     selectComponent(state, action) {
         state.selectedComponentId = action.payload;
@@ -111,7 +99,7 @@ const componentSlice = createSlice({
 export const getComponentError = (state) => state.components.error;
 
 export const { updateStyles, selectComponent, addComponent, updateText } = componentSlice.actions;
-// A selector for selected components
+
 export const getSelectedComponent = (state) => {
     const searchComponent = (components, selectedId) => {
       for (const component of components) {
