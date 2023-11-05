@@ -1,39 +1,42 @@
 // Layout.js
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import Section from '../src/components/section';
-import Button from '../src/components/customizedButton';
+import React from "react";
+import { useSelector } from "react-redux";
+import { getSelectedComponent } from "../src/redux/store";
+import Section from "../src/components/section";
+import CustomizedButton from "../src/components/customizedButton";
 
 const LayoutDesign = () => {
-  const components = useSelector(state => state.components.components);
-  const [selectedComponentId, setSelectedComponentId] = useState(null);
+    const components = useSelector(state => state.components.components);
+    const selectedComponent = useSelector(getSelectedComponent);
 
-  const handleSelectComponent = (id) => {
-    setSelectedComponentId(id);
-  };
 
-  const renderComponent = (comp) => {
-    switch (comp.type) {
-      case 'section':
-        return <Section styles={comp.styles}>{comp.children.map(renderComponent)}</Section>;
-      case 'button':
-        return <Button styles={comp.styles} text="Click me" />;
-      default:
-        return null;
-    }
-  };
+    const renderComponent = (comp) => {
+        const isSelected = comp.id === selectedComponent?.id;
 
-  return (
-    <div>
-        <div className="layout-style">
-            {components.map(comp => (
-                <div key={comp.id} onClick={() => handleSelectComponent(comp.id)}>
-                {renderComponent(comp)}
-                </div>
-            ))}
-      </div>
-    </div>
-  );
+        // The style if the component is selected
+        const selectedStyle = isSelected ? { border: "2px solid blue" } : {};
+
+        switch (comp.type) {
+        case "section":
+            return <Section styles={{ ...comp.styles, ...selectedStyle }}>{comp.children?.map((child) => renderComponent(child))}</Section>;
+        case "button":
+            return <CustomizedButton styles={{ ...comp.styles, ...selectedStyle, whiteSpace: "nowrap" }} text={comp.text} />;
+        default:
+            return null;
+        }
+    };
+
+    return (
+        <div className="layout-design">
+            <>
+                {components.map(comp => (
+                    <div key={comp.id}>
+                        {renderComponent(comp)}
+                    </div>
+                ))}
+            </>
+        </div>
+    );
 };
 
 export default LayoutDesign;

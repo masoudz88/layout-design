@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-const Section = ({ styles, children }) => {
-  return <div style={styles}>{children}</div>;
+const Section = ({ onClick, styles, children }) => {
+  return <div onClick={onClick} style={styles}>{children}</div>;
 };
 
 export default Section;
