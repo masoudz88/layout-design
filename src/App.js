@@ -9,10 +9,10 @@ import Dropdown from "./components/dropDown";
 function App() {
   return (
     <Provider store={store}>
-      <div style={{display: "flex", flexDirection: "row"}}>
-          <LayoutDesign />
+      <div className= "styling-app">
+          <LayoutDesign/>
           <StyleEditor/>
-          <Dropdown style={{ position: "absolute", top: 20, right: 10 }}/>
+          <Dropdown className= "dropdown"/>
       </div>
     </Provider>
   );
