@@ -28,6 +28,19 @@ const initialComponentState = {
   error: null,
 };
 
+const findComponent = (components, id) => {
+    for (const component of components) {
+      if (component.id === id) {
+        return component;
+      }
+      if (component.children.length > 0) {
+        const foundComponent = findComponent(component.children, id);
+        if (foundComponent) return foundComponent;
+      }
+    }
+    return null;
+};
+
 const getRandomColor = () => {
     // Generate a random hex color
     return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0');
@@ -47,7 +60,7 @@ const componentSlice = createSlice({
             
             // Create a new ID based on the parent ID and the number of same-type children
             const newIdSuffix = childrenOfType + 1;
-            const newId = `${selectedComponent.id} ${type} ${newIdSuffix}`; 
+            const newId = `${selectedComponent.id} -> ${type} ${newIdSuffix}`; 
             const newComponent = {
                 id: newId,
                 type: type,
@@ -70,7 +83,6 @@ const componentSlice = createSlice({
                 nestingDepth: selectedComponent.nestingDepth + 1,
             };
             selectedComponent.children.push(newComponent);
-            state.error = null;
         }
         else {
             state.error = "Maximum nesting depth reached. Cannot add more components.";
@@ -98,39 +110,11 @@ const componentSlice = createSlice({
 
 export const getComponentError = (state) => state.components.error;
 
-export const { updateStyles, selectComponent, addComponent, updateText } = componentSlice.actions;
-
 export const getSelectedComponent = (state) => {
-    const searchComponent = (components, selectedId) => {
-      for (const component of components) {
-        if (component.id === selectedId) {
-          return component;
-        }
-        if (component.children) {
-          const found = searchComponent(component.children, selectedId);
-          if (found) return found;
-        }
-      }
-      return null;
-    };
-  
-    return searchComponent(state.components.components, state.components.selectedComponentId);
+    return findComponent(state.components.components, state.components.selectedComponentId);
 };
 
-const findComponent = (components, id) => {
-    for (const component of components) {
-      if (component.id === id) {
-        return component;
-      }
-      if (component.children.length > 0) {
-        const foundComponent = findComponent(component.children, id);
-        if (foundComponent) return foundComponent;
-      }
-    }
-    return null;
-};
-  
-  
+export const { updateStyles, selectComponent, addComponent, updateText } = componentSlice.actions;
 
 export const store = configureStore({
   reducer: {

@@ -36,7 +36,7 @@ const Dropdown = () => {
 
     return (
         <Box sx={{ position: "absolute", top: 20, right: 10 }}>
-            <FormControl sx={{ minWidth: "100px" }}>
+            <FormControl sx={{ minWidth: "100px", maxWidth: "300px" }}>
                 <InputLabel sx={{ fontSize: "12px" }} id="dropdown-label">Options</InputLabel>
                 <Select
                     labelId="dropdown-label"
