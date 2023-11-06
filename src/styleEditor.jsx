@@ -64,7 +64,7 @@ const StyleEditor = () => {
     };
 
     return (
-        <Container sx={{position: "relative", paddingTop: "50px"}}>
+        <Container sx={{position: "relative", paddingTop: "5px"}}>
             {error && <p className="error">{error}</p>}
             <div className="selector-text"><strong>{selectedComponent?.id}</strong> is selected</div>
             

@@ -85,7 +85,7 @@ const componentSlice = createSlice({
             selectedComponent.children.push(newComponent);
         }
         else {
-            state.error = "Maximum nesting depth reached. Cannot add more components.";
+            state.error = "Maximum nesting depth reached!";
         }
     },
     updateStyles(state, action) {
