@@ -83,6 +83,7 @@ const componentSlice = createSlice({
                 nestingDepth: selectedComponent.nestingDepth + 1,
             };
             selectedComponent.children.push(newComponent);
+            state.error=null;
         }
         else {
             state.error = "Maximum nesting depth reached!";
