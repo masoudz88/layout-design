@@ -1,7 +1,25 @@
 
-In the project directory, you can run:
+### Installing
 
-### `npm start`
+To get the development environment running, clone the repository and install the dependencies.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+First, clone the repo:
+
+```bash
+git clone https://github.com/masoudz88/sample-project.git
+```
+
+Navigate to the project directory:
+```bash
+cd your-repo-name
+```
+
+Install dependencies with npm:
+```bash
+npm install
+```
+
+Then start the development server:
+```bash
+npm start
+```
