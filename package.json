@@ -1,7 +1,7 @@
 {
-  "name": "sample-work-app",
+  "name": "layout-design-app",
   "version": "0.1.0",
-  "homepage": "https://masoudz88.github.io/sample-project",
+  "homepage": "https://masoudz88.github.io/layout-design",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
