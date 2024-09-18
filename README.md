@@ -32,4 +32,4 @@ npm start
 
 You can view a live version of the app at the following URL:
 
-[https://masoudz88.github.io/sample-project/](https://masoudz88.github.io/layout-design/)
+[https://masoudz88.github.io/layout-design/](https://masoudz88.github.io/layout-design/)
